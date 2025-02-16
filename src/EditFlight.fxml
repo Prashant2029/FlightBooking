@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<!-- Ensure VBox is imported -->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="798.0" style="-fx-background-color: #8B4513;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditFlightGui">
+   <children>
+      <Label layoutX="313.0" layoutY="62.0" text="Edit Flight" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="flightNumberEdit" layoutX="275.0" layoutY="162.0" prefHeight="46.0" prefWidth="249.0" promptText="Enter Flight Number" />
+      <TextField fx:id="customerIdEdit" layoutX="275.0" layoutY="292.0" prefHeight="46.0" prefWidth="249.0" promptText="Enter Destination" />
+      <TextField fx:id="passportIdEdit" layoutX="275.0" layoutY="228.0" prefHeight="46.0" prefWidth="249.0" promptText="Enter Origin" />
+      <Button layoutX="324.0" layoutY="435.0" mnemonicParsing="false" onAction="#ConfirmChange" prefHeight="31.0" prefWidth="151.0" style="-fx-background-color: black;" text="Confirm Change" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomePage" prefHeight="37.0" prefWidth="88.0" style="-fx-background-color: black;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <DatePicker fx:id="dateEdit" layoutX="275.0" layoutY="359.0" prefHeight="46.0" prefWidth="249.0" />
+
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>
