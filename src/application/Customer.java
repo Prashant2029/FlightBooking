@@ -1,8 +1,6 @@
 package application;
 
 import java.io.BufferedReader;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,38 +26,71 @@ import Methods.DeleteFlight;
 import Methods.EditCustomer;
 
 
+/**
+ * Controller class for the Customer management view.
+ * This class handles user interactions related to adding, deleting, and editing customer information.
+ * It also manages navigation to other views within the application.
+ */
 public class Customer extends InterfaceLoader {
-    
-    @FXML
-    private TextField customerNameLabel, customerIdLabel, passportIdLabel, customerNumberdel, customerIdLabelEdit;     
 
+    @FXML
+    private TextField customerNameLabel, customerIdLabel, passportIdLabel, customerNumberdel, customerIdLabelEdit;
+
+    /**
+     * Switches to the Home view.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If the FXML file for the Home view cannot be loaded.
+     */
     @FXML
     public void switchToHome(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        loadPage(event, "/Home.fxml"); // Uses the loadPage method from InterfaceLoader
     }
-    
+
+    /**
+     * Switches to the Flight view.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If the FXML file for the Flight view cannot be loaded.
+     */
     @FXML
     public void switchToFlight(ActionEvent event) throws IOException {
-    	loadPage(event, "/Flight.fxml");
+        loadPage(event, "/Flight.fxml"); // Uses the loadPage method from InterfaceLoader
     }
-    
-    // Fix the method name to avoid conflict
+
+    /**
+     * Switches to the More view.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If the FXML file for the More view cannot be loaded.
+     */
+    @FXML
+    public void switchToMore(ActionEvent event) throws IOException {
+        loadPage(event, "/More.fxml"); // Uses the loadPage method from InterfaceLoader
+    }
+
+    /**
+     * Adds a new customer to the system.
+     * Retrieves customer information from the input fields and saves it to a file.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     */
     public void addNewCustomer(ActionEvent event) {
         String customerName = customerNameLabel.getText();
         String customerId = customerIdLabel.getText();
         String passportId = passportIdLabel.getText();
 
-        // Create an instance of AddFlight
         AddCustomer customer = new AddCustomer(customerName, customerId, passportId);
         customer.SaveToFile();
     }
-    
+
+    /**
+     * Deletes a customer from the system.
+     * Retrieves the customer ID from the input field and deletes the corresponding customer record.
+     * Displays a confirmation dialog before deleting the customer.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     */
     public void deleteCustomer(ActionEvent event) {
         String customerId = customerNumberdel.getText();
 
@@ -68,7 +99,6 @@ public class Customer extends InterfaceLoader {
             return;
         }
 
-        // Confirmation Dialog (Optional)
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Customer");
         alert.setHeaderText("Are you sure you want to delete Customer: " + customerId + "?");
@@ -79,7 +109,14 @@ public class Customer extends InterfaceLoader {
             DeleteCustomer.deleteCustomer(customerId);
         }
     }
-    
+
+    /**
+     * Displays an alert dialog with the specified title, message, and alert type.
+     *
+     * @param title     The title of the alert dialog.
+     * @param message   The message to be displayed in the alert dialog.
+     * @param alertType The type of the alert dialog (e.g., ERROR, WARNING, INFORMATION).
+     */
     public static void showAlert(String title, String message, AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -88,29 +125,36 @@ public class Customer extends InterfaceLoader {
         alert.showAndWait();
     }
 
-
+    /**
+     * Opens the edit customer view for a specific customer.
+     * Checks if a customer with the given ID exists. If found, opens the edit view. Otherwise, displays an error message.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If the FXML file for the edit view cannot be loaded.
+     */
     public void Edit(ActionEvent event) throws IOException {
         String flightIdToSearch = customerIdLabelEdit.getText();
-        
-        	boolean flightFound;
-        	
-        	EditCustomer edit = new EditCustomer();
-        	flightFound = edit.CheckCustomer(event, flightIdToSearch);
 
-            // If no flight is found
-            if (!flightFound) {
-                showAlert("Customer Not Found", "No Custom found with ID: " + flightIdToSearch, AlertType.ERROR);
-            }
+        boolean flightFound;
 
-        } 
-  
-       
-	@Override
-	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+        EditCustomer edit = new EditCustomer();
+        flightFound = edit.CheckCustomer(event, flightIdToSearch);
+
+        if (!flightFound) {
+            showAlert("Customer Not Found", "No Customer found with ID: " + flightIdToSearch, AlertType.ERROR);
+        }
+    }
+
+    /**
+     * The start method is required by the Application class but is currently empty.
+     * It is overridden here, but currently does nothing.  It seems it should be removed.
+     *
+     * @param arg0 The primary stage for this application.
+     * @throws Exception If an error occurs during application startup.
+     */
+    @Override
+    public void start(Stage arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }
-    
-
-
